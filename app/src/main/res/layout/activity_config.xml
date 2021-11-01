@@ -22,6 +22,18 @@
         app:layout_constraintVertical_bias="0.123"
         tools:layout_editor_absoluteX="20dp" />
 
+    <EditText
+        android:id="@+id/edtIdImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:hint="Ingrese usuario"
+        android:visibility="invisible"/>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
@@ -44,11 +56,23 @@
         android:text="Editar avatar"/>
 
     <EditText
-        android:id="@+id/edtUser"
+        android:id="@+id/edtUserId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/imageView"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:hint="Ingrese usuario"
+        android:visibility="invisible"/>
+
+    <EditText
+        android:id="@+id/edtUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintBottom_toBottomOf="@id/edtUserId"
         app:layout_constraintVertical_bias="0.1"
         android:inputType="textPersonName"
         android:maxLength="10"
@@ -63,7 +87,8 @@
         app:layout_constraintVertical_bias="0.1"
         android:inputType="textPersonName"
         android:maxLength="10"
-        android:hint="URL"/>
+        android:hint="URL"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/btnSave"

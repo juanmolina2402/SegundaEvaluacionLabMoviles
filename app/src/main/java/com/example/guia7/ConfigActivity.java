@@ -36,8 +36,13 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 
 public class ConfigActivity extends AppCompatActivity {
+    ///USER
     private EditText edtUser;
+    private EditText edtIdUser;
+    ///IMG
+    private EditText edtIdImg;
     private Button btnSave, btnImg;
+
     /*public static String FILE_CONF = "configuration";
     private SharedPreferences sharedPreferences;*/
 
@@ -86,7 +91,12 @@ public class ConfigActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        ///USER
+        edtIdUser = findViewById(R.id.edtUserId);
         edtUser = findViewById(R.id.edtUser);
+        ///IMG
+        edtIdImg = findViewById(R.id.edtIdImg);
+
         btnSave = findViewById(R.id.btnSave);
         ///addToEditText();
 
@@ -95,6 +105,7 @@ public class ConfigActivity extends AppCompatActivity {
 
         btnSave.setOnClickListener( aux -> {
             ///addUser();
+            guardarImagen();
         });
 
         //IMAGEN
@@ -152,12 +163,31 @@ public class ConfigActivity extends AppCompatActivity {
         activityResult.launch(intent);
     }
     ///Guardar Imagen
-    /*private void guardar(){
-        Image img = new Image()
-    }*/
+    private void guardarImagen(){
+        Image img = new Image(edtIdImg.getText().toString(), "m");
+        if(db.guardar_O_ActualizarImagen(img)){
+            limpiarJugador();
+            Toast.makeText(ConfigActivity.this, "Guardado", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(ConfigActivity.this, "Ocurrio un error", Toast.LENGTH_SHORT).show();
+        }
+    }
     ///Guardar Jugador
     private void guardarJugador(){
-
+        Player player = new Player(edtUser.getText().toString(), edtIdUser.getText().toString(), null, "0");
+        if(db.guardar_O_ActualizarJUgador(player)){
+            ///Toast.makeText(ConfigActivity, "", Toast.LENGTH_SHORT).show();
+            limpiarJugador();
+        }else{
+            Toast.makeText(ConfigActivity.this, "Ocurrio un error", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void limpiarJugador(){
+        edtUser.setText("");
+        edtUser.setText("");
+    }
+    public void LimpiarImagen(){
+        edtIdImg.setText("");
     }
 
     @Override
