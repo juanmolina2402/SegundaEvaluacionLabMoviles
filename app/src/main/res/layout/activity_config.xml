@@ -78,7 +78,7 @@
         android:maxLength="10"
         android:hint="Ingrese usuario"/>
 
-    <EditText
+    <TextView
         android:id="@+id/edtURL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,9 +86,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.1"
         android:inputType="textPersonName"
-        android:maxLength="10"
-        android:hint="URL"
-        android:visibility="invisible"/>
+        android:visibility="visible"/>
 
     <Button
         android:id="@+id/btnSave"

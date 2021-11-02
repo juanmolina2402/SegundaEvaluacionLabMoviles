@@ -10,9 +10,11 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,11 +27,15 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.guia7.db.DB;
 import com.example.guia7.model.Image;
 import com.example.guia7.model.Player;
+import com.example.guia7.utils.RealPathUtil;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -42,6 +48,7 @@ public class ConfigActivity extends AppCompatActivity {
     ///IMG
     private EditText edtIdImg;
     private Button btnSave, btnImg;
+    private TextView edURL;
 
     /*public static String FILE_CONF = "configuration";
     private SharedPreferences sharedPreferences;*/
@@ -57,6 +64,7 @@ public class ConfigActivity extends AppCompatActivity {
     ImageView imgView;
     Bitmap img;
 
+
     //IMAGEN
     ActivityResultLauncher<Intent> activityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -66,9 +74,20 @@ public class ConfigActivity extends AppCompatActivity {
                     Intent data = result.getData();
                     if( result.getResultCode() == Activity.RESULT_OK) {
                         Uri selectedImage = data.getData();
+                        Context context = ConfigActivity.this;
+                        ///final String realPath = getRealPathFromURI(selectedImage);
+
+                        String path = RealPathUtil.getRealPath(context, selectedImage);
+                        edURL.setText(path);
+
                         Bitmap bmp = null;
                         try{
                             bmp = getBitMapFromURI(selectedImage);
+                            /*String UriString = String.valueOf(bmp);
+                            */
+
+
+
                             if ( bmp != null ) {
                                 img = bmp;
                                 imgView.setImageBitmap(bmp);
@@ -98,6 +117,8 @@ public class ConfigActivity extends AppCompatActivity {
         edtIdImg = findViewById(R.id.edtIdImg);
 
         btnSave = findViewById(R.id.btnSave);
+
+        edURL = (TextView) findViewById(R.id.edtURL);
         ///addToEditText();
 
         // Inicializando db
@@ -118,7 +139,25 @@ public class ConfigActivity extends AppCompatActivity {
             openFile();
         });
 
+
+
+
+
     }
+    /////////////GET REAL PATH
+    /*private String getRealPathFromURI(Uri contentUri){
+        String result;
+        Cursor cursor = getContentResolver().query(contentUri, null, null, null, null);
+        if(cursor == null){
+            result = contentUri.getPath();
+        }else{
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }*/
 
     /*private void addToEditText(){
         sharedPreferences = getSharedPreferences(FILE_CONF, MODE_PRIVATE);
@@ -164,6 +203,7 @@ public class ConfigActivity extends AppCompatActivity {
     }
     ///Guardar Imagen
     private void guardarImagen(){
+
         Image img = new Image(edtIdImg.getText().toString(), "m");
         if(db.guardar_O_ActualizarImagen(img)){
             limpiarJugador();
