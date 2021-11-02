@@ -2,13 +2,21 @@ package com.example.guia7;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.guia7.model.Image;
+import com.example.guia7.model.Player;
+
 import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*private ArrayList<Image> lstimg;
+    private ArrayList<Player> lstplayer;*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgHelp = findViewById(R.id.imvHelp);
         ImageView imgConfig = findViewById(R.id.imvConfig);
         ImageView imgDatos = findViewById(R.id.imvDatos);
+
+        ///lstimg = ConfigActivity.db.getArrayImages(ConfigActivity.db.getCursorImgs());
 
         imgPlay.setOnClickListener(aux -> {
             if(validate()){

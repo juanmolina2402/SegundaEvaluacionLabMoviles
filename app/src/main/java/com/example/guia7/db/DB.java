@@ -22,7 +22,7 @@ public class DB {
     }
 
     ///Consulta simple de imgs
-    public Cursor getCursor() {
+    public Cursor getCursorImgs() {
         return dbHelper.getReadableDatabase().rawQuery(
                 "select * from imgs", null
         );

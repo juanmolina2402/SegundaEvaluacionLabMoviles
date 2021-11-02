@@ -54,7 +54,7 @@ public class ConfigActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;*/
 
     ///Persistencia con BD
-    private DB db;
+    public static DB db;
     private Player player;
     private Image image;
 
@@ -204,7 +204,7 @@ public class ConfigActivity extends AppCompatActivity {
     ///Guardar Imagen
     private void guardarImagen(){
 
-        Image img = new Image(edtIdImg.getText().toString(), "m");
+        Image img = new Image(edtIdImg.getText().toString(), edURL.getText().toString());
         if(db.guardar_O_ActualizarImagen(img)){
             limpiarJugador();
             Toast.makeText(ConfigActivity.this, "Guardado", Toast.LENGTH_LONG).show();
@@ -214,7 +214,7 @@ public class ConfigActivity extends AppCompatActivity {
     }
     ///Guardar Jugador
     private void guardarJugador(){
-        Player player = new Player(edtUser.getText().toString(), edtIdUser.getText().toString(), null, "0");
+        Player player = new Player(edtIdUser.getText().toString(), edtUser.getText().toString(), edtIdImg.getText().toString(), "0");
         if(db.guardar_O_ActualizarJUgador(player)){
             ///Toast.makeText(ConfigActivity, "", Toast.LENGTH_SHORT).show();
             limpiarJugador();
@@ -228,6 +228,7 @@ public class ConfigActivity extends AppCompatActivity {
     }
     public void LimpiarImagen(){
         edtIdImg.setText("");
+        edURL.setText("");
     }
 
     @Override
